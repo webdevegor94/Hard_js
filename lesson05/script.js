@@ -23,6 +23,13 @@ for (let i = 0; i < arr.length; i++) {
     Например: “Делители этого числа: 1 и n”
     */
 
-for (let i = 1; i <= 100; i++) {
-    console.log('Делители этого числа: 1 и ' + i)
+// for (let i = 1; i <= 100; i++) {
+//     console.log('Делители этого числа: 1 и ' + i)
+// }
+
+nextPrime: for (let i = 1; i <= 100; i++) {
+    for (let j = 2; j < i; j++) {
+        if (i % j == 0) continue nextPrime
+    }
+    console.log(i + " - Делители этого числа: 1 и " + i)
 }
