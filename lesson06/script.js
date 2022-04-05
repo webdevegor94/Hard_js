@@ -1,15 +1,15 @@
 
 function guess() {
     let res = prompt("Загадывание случайного числа от 1 до 100")
-    if (res === null) {
+    if (res === null) { // если нажимаем "отмена"
         console.log('Отмена')
-        finish()
-    } else if (!isNumber(res)) {
+        finish() // игра оконченна 
+    } else if (!isNumber(res)) { //если вводим не число 
         console.log('Не число')
-        return guess()
-    } else {
+        return guess() // происходит повторный вызов функции 
+    } else { // в остальных случаях вводим число
         console.log('Число')
-        return Number(res)
+        return Number(res) // переменую res переопределяем как число 
     }
 
 }
@@ -24,33 +24,64 @@ function isNumber(num) {
     return !isNaN(parseFloat(num)) && isFinite(num)
 }
 
-let guessNumber = guess()// Загаданное число
-console.log(guessNumber)
+let guessNumber = guess() // Загаданное число
+let j = 10  // 10 попыток
+play() // начали игру 
+
+
 
 function play() {
+
     let res = prompt("Угадай число от 1 до 100")
-    if (res === null) {
+    if (res === null) { // если нажимаем отмена 
         console.log('Отмена')
-        finish()
-    } else if (!isNumber(res)) {
+        finish() // происходит завершение игры 
+    } else if (!isNumber(res)) { // иначе если переменная res не число 
         console.log('Не число')
         alert('Введите число')
-        play()
+        play() // рекурсия функции 
     } else {
         console.log('Число')
-        res = Number(res)
-        if (res < guessNumber) {
-            alert('Загаданное число больше')
-            play()
-        } else if (res > guessNumber) {
-            alert('Загаданное число меньше')
-            play()
+        res = Number(res) // переопределяем res в число 
+        if (res < guessNumber) { // если res меньше  загаданного числа 
+            j = j - 1 // минус 1 попытка
+            if (j >= 1) {
+                alert('Загаданное число больше, осталось попыток ' + j)
+                play() // рекурсия 
+            } else {
+                let repeat = confirm('Попытки закончились, хотите сыграть еще?')
+                if (repeat === true) {
+                    guessNumber = guess()
+                    j = 10
+                    play()
+                } else {
+                    finish()
+                }
+            }
+        } else if (res > guessNumber) { // если res больше загаданного числа 
+            j = j - 1 // минус 1 попытка
+            if (j >= 1) {
+                alert('Загаданное число меньше, осталось попыток ' + j)
+                play() // рекурсия 
+            } else {
+                let repeat = confirm('Попытки закончились, хотите сыграть еще?')
+                if (repeat === true) {
+                    guessNumber = guess()
+                    j = 10
+                    play()
+                } else {
+                    finish()
+                }
+            }
         } else {
             // тут считаем что равно 
             let repeat = confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')
-            if (repeat === true) {
+            if (repeat === true) { // нажал ок
                 guessNumber = guess()
+                j = 10
                 play()
+            } else {
+                finish()
             }
 
         }
@@ -58,4 +89,3 @@ function play() {
     }
 }
 
-play()
